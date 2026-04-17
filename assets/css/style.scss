@@ -1,0 +1,73 @@
+---
+---
+@use "tale";
+nav ul,
+footer {
+  display: none;
+}
+* {
+  background: #8C2804;
+  color: #ff9b4f !important;
+  font-family: Helvetica, sans-serif !important;
+  font-size: 1rem;
+  border-top-color: #ff9b4f !important;
+  animation: none !important;
+  transition: none !important;
+}
+.nav {
+  box-shadow: none !important;
+}
+.header {
+  box-shadow: none !important;
+}
+.post-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.post-grid-item {
+  display: flex;
+  gap: 0.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.post-grid-item::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.post-grid-item:hover::after {
+  opacity: 1;
+}
+.post-title {
+  font-size: 2rem;
+}
+.post-line {
+  border-top: .1rem solid;
+}
+a, .nav-title, .nav a {
+  color: #d9580d;
+}
+h1, h2, h3 {
+  color: #8c2804;
+}
+.post-content img {
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+.post-content img + img {
+  margin-top: -1rem;
+}
+.post-grid .post-grid-item img {
+  flex: 1;
+  min-width: 0;
+  object-fit: contain;
+  margin: 0;
+}

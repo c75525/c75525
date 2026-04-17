@@ -1,0 +1,24 @@
+---
+layout: default
+---
+
+<div class="post-grid">
+{% for post in paginator.posts %}
+  <a href="{{ post.url }}" class="post-grid-item" data-title="{{ post.title }}">
+    {% for image in post.cover_images %}
+      <img src="{{ image }}" alt="{{ post.title }}">
+    {% endfor %}
+  </a>
+{% endfor %}
+</div>
+
+{% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path }}">Newer</a>
+    {% endif %}
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path }}">Older</a>
+    {% endif %}
+  </div>
+{% endif %}
