@@ -4,7 +4,7 @@ layout: default
 
 <div class="post-grid">
 {% for post in paginator.posts %}
-  <a href="{{ post.url }}" class="post-grid-item" data-title="{{ post.title }}">
+  <a href="{{ post.url | relative_url }}" class="post-grid-item" data-title="{{ post.title }}">
     {% for image in post.cover_images %}
       <img src="{{ image }}" alt="{{ post.title }}">
     {% endfor %}
