@@ -28,9 +28,9 @@ twitter_username: jekyllrb
 github_username:  c75525
 
 # Build settings
-theme: tale
+remote_theme: chesterhow/tale
 plugins:
-  - jekyll-feed
+  - jekyll-remote-theme
   - jekyll-paginate
 
 paginate: 5
