@@ -1,6 +1,5 @@
 ---
 ---
-
 nav ul,
 footer {
   display: none;
@@ -26,10 +25,10 @@ footer {
   gap: 1rem;
 }
 .post-grid-item {
-  display: flex;
-  gap: 0.25rem;
   position: relative;
   overflow: hidden;
+  width: 100%;
+  aspect-ratio: 4 / 3;
 }
 .post-grid-item::after {
   content: attr(data-title);
@@ -65,9 +64,7 @@ h1, h2, h3 {
 .post-content img + img {
   margin-top: -1rem;
 }
-.post-grid .post-grid-item img {
-  flex: 1;
-  min-width: 0;
-  object-fit: contain;
-  margin: 0;
+.post-grid-item img {
+  position: absolute;
+  object-fit: cover;
 }
