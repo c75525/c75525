@@ -6,7 +6,7 @@ cover_images:
     top: 0
     left: 35
     width: 200
-    height: 200
+    height: 90
   - url: https://live.staticflickr.com/65535/55204631910_67b3730111_b.jpg
     top: 10
     left: 5
