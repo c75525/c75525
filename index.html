@@ -1,17 +1,17 @@
 ---
 layout: default
 ---
-
 <div class="post-grid">
 {% for post in paginator.posts %}
   <a href="{{ post.url | relative_url }}" class="post-grid-item" data-title="{{ post.title }}">
-    {% for image in post.cover_images %}
-  <img src="{{ image.url }}" style="top:{{ image.top }}%; left:{{ image.left }}%; width:{{ image.width }}%; height:{{ image.height }}%;" alt="{{ post.title }}">
+{% for image in post.cover_images %}
+  <div class="img-wrap" style="top:{{ image.top }}%; left:{{ image.left }}%; width:{{ image.width }}%; height:{{ image.height }}%;">
+    <img src="{{ image.url }}" alt="{{ post.title }}">
+  </div>
 {% endfor %}
   </a>
 {% endfor %}
 </div>
-
 {% if paginator.total_pages > 1 %}
   <div class="pagination">
     {% if paginator.previous_page %}

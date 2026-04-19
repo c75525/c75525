@@ -5,7 +5,7 @@ footer {
   display: none;
 }
 * {
-  background-color:#D9580D;
+  background-color: #8C2804;
   color: #ff9b4f !important;
   font-family: Helvetica, sans-serif !important;
   font-size: 1rem;
@@ -13,9 +13,6 @@ footer {
   animation: none !important;
   transition: none !important;
 }
-
-
-
 .nav {
   box-shadow: none !important;
 }
@@ -44,6 +41,7 @@ footer {
   padding: 0.5rem;
   opacity: 0;
   transition: opacity 0.2s;
+  z-index: 20;
 }
 .post-grid-item:hover::after {
   opacity: 1;
@@ -67,8 +65,16 @@ h1, h2, h3 {
 .post-content img + img {
   margin-top: -1rem;
 }
-.post-grid-item img {
+.img-wrap {
   position: absolute;
-  object-fit: cover;
+  background-color: #D9580D;
 }
-
+.img-wrap img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: luminosity ;
+}
