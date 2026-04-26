@@ -5,7 +5,7 @@ footer {
   display: none;
 }
 * {
-  background-color: #8C2804;
+  background-color: #a84604;
   color: #ff9b4f !important;
   font-family: Helvetica, sans-serif !important;
   font-size: 1rem;
@@ -29,13 +29,6 @@ footer {
   overflow: hidden;
   width: 100%;
   aspect-ratio: 4 / 3;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.6s ease !important, transform 0.6s ease !important;
-}
-.post-grid-item.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 .post-grid-item::after {
   content: attr(data-title);
@@ -43,8 +36,8 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #F2DF80;
-  color: #D9580D;
+  background: #555555;
+  color: #F2DF80;
   padding: 0.5rem;
   opacity: 0;
   transition: opacity 0.2s !important;
@@ -82,5 +75,5 @@ h1, h2, h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  mix-blend-mode: normal;
+  mix-blend-mode:normal;
 }

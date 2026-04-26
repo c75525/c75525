@@ -22,15 +22,3 @@ layout: default
     {% endif %}
   </div>
 {% endif %}
-
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.post-grid-item').forEach(el => observer.observe(el));
-</script>
