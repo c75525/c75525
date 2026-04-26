@@ -16,17 +16,18 @@ footer {
 .nav {
   box-shadow: none !important;
 }
-.nav img {
-  height: 25rem;
-  width: auto !important;
-  max-width: none !important;
-}
-.header {
-  box-shadow: none !important;
-}
 .nav-container {
   margin: 0 auto !important;
   padding: 0 !important;
+}
+.nav-container img {
+  height: 25rem !important;
+  width: auto !important;
+  max-width: unset !important;
+  display: block;
+}
+.header {
+  box-shadow: none !important;
 }
 main {
   margin-top: 0 !important;
