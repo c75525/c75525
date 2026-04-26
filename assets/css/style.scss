@@ -93,6 +93,10 @@ h1, h2, h3 {
 }
 
 @media (max-width: 940px) {
+  .nav-container {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
   .nav-container img {
     height: auto !important;
     width: 100vw !important;
