@@ -5,7 +5,7 @@ footer {
   display: none;
 }
 * {
-  background-color: #a84604;
+  background-color: #c75525;
   color: #ff9b4f !important;
   font-family: Helvetica, sans-serif !important;
   font-size: 1rem;
@@ -18,6 +18,14 @@ footer {
 }
 .header {
   box-shadow: none !important;
+}
+.nav-container {
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+main {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 .post-grid {
   display: flex;
@@ -36,8 +44,8 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  background: #555555;
-  color: #F2DF80;
+  background: #5d5956;
+  color: #b1aaa0;
   padding: 0.5rem;
   opacity: 0;
   transition: opacity 0.2s !important;
@@ -75,5 +83,5 @@ h1, h2, h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  mix-blend-mode:normal;
+  mix-blend-mode: normal;
 }
