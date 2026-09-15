@@ -4,7 +4,7 @@ layout: splash
 {% assign tube_posts = site.posts | where_exp: 'post', "post.tube.world == 'c75525'" %}
 <section class="splash" aria-labelledby="splash-title">
   <div class="splash-art" aria-hidden="true">
-    <img src="{{ '/assets/img/splash-logo.svg' | relative_url }}" alt="">
+    <img src="{{ '/assets/img/splash-logo.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="">
   </div>
 
   <div class="splash-copy">

@@ -14,7 +14,11 @@
         font-size: 13.81px;
       }
 
-      path:not(.cls-1) { fill: #472e26; }
+      path:not(.cls-1) {
+        fill: #472e26;
+        stroke: #fff;
+        stroke-width: 1;
+      }
       text { fill: #472e26; }
 
       .cls-3 {
