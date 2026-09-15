@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
-const baseurl = process.argv[2] ?? '/c75525';
+const baseurl = process.argv[2] ?? '';
 const site = path.join(__dirname, '..', '_site');
 const read = (name) => fs.readFileSync(path.join(site, name), 'utf8');
 const objects = JSON.parse(read('tube-objects.json'));

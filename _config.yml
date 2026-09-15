@@ -22,8 +22,8 @@ title: c75525
 email: samcplatten@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   welcome to my blog, thanks for visiting
-baseurl: "/c75525" # the subpath of your site, e.g. /blog
-url: "https://c75525.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # custom domain serves the site from its root
+url: "https://c75525.org" # canonical production hostname
 twitter_username: jekyllrb
 github_username:  c75525
 
