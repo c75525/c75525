@@ -1,0 +1,21 @@
+---
+layout: default
+permalink: /archive/
+---
+<div class="post-grid">
+{% for post in paginator.posts %}
+  <a href="{{ post.url | relative_url }}" class="post-grid-item" data-title="{{ post.title }}">
+{% for image in post.cover_images %}
+  <div class="img-wrap" style="top:{{ image.top }}%; left:{{ image.left }}%; width:{{ image.width }}%; height:{{ image.height }}%;">
+    <img src="{{ image.url }}" alt="{{ post.title }}">
+  </div>
+{% endfor %}
+  </a>
+{% endfor %}
+</div>
+{% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}<a href="{{ paginator.previous_page_path }}">Newer</a>{% endif %}
+    {% if paginator.next_page %}<a href="{{ paginator.next_page_path }}">Older</a>{% endif %}
+  </div>
+{% endif %}

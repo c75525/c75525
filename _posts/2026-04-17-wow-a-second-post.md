@@ -18,6 +18,15 @@ cover_images:
     width: 40
     height: 60
 categories: jekyll update
+# Example location: edit these coordinates/connections as the world develops.
+tube:
+  world: c75525
+  ring: 1
+  object: 2
+  branch_path: root/main
+  coordinate: [1, 0]
+  nav:
+    counterclockwise: /jekyll/update/2026/04/17/hey-first-post.html
 ---
 fence-target looks upon my stab
 

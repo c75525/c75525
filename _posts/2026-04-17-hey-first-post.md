@@ -8,6 +8,15 @@ cover_images:
     width: 80
     height: 80
 categories: jekyll update
+# Example location: edit these coordinates/connections as the world develops.
+tube:
+  world: c75525
+  ring: 1
+  object: 1
+  branch_path: root/main
+  coordinate: [0, 0]
+  nav:
+    clockwise: /jekyll/update/2026/04/17/wow-a-second-post.html
 ---
 oasian faculties
 

@@ -1,0 +1,17 @@
+---
+layout: null
+permalink: /tube-objects.json
+---
+{% assign tube_posts = site.posts | where_exp: 'post', "post.tube.world == 'c75525'" %}
+[
+{% for post in tube_posts %}
+  {
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | relative_url | jsonify }},
+    "ring": {{ post.tube.ring | jsonify }},
+    "object": {{ post.tube.object | jsonify }},
+    "coordinate": {{ post.tube.coordinate | join: ',' | jsonify }},
+    "nav": {{ post.tube.nav | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]

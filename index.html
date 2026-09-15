@@ -1,24 +1,138 @@
 ---
-layout: default
+layout: splash
 ---
-<div class="post-grid">
-{% for post in paginator.posts %}
-  <a href="{{ post.url | relative_url }}" class="post-grid-item" data-title="{{ post.title }}">
-{% for image in post.cover_images %}
-  <div class="img-wrap" style="top:{{ image.top }}%; left:{{ image.left }}%; width:{{ image.width }}%; height:{{ image.height }}%;">
-    <img src="{{ image.url }}" alt="{{ post.title }}">
+{% assign tube_posts = site.posts | where_exp: 'post', "post.tube.world == 'c75525'" %}
+<section class="splash" aria-labelledby="splash-title">
+  <div class="splash-art" aria-hidden="true">
+    <img src="{{ '/assets/img/splash-page-mockup.svg' | relative_url }}" alt="">
   </div>
-{% endfor %}
-  </a>
-{% endfor %}
-</div>
-{% if paginator.total_pages > 1 %}
-  <div class="pagination">
-    {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path }}">Newer</a>
-    {% endif %}
-    {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path }}">Older</a>
-    {% endif %}
+
+  <div class="splash-copy">
+    <h1 id="splash-title">welcome to c75525.com</h1>
+    <p>there is lots of things to do. it’s a tube world. you can do things like</p>
+    <ol>
+      <li>check out the photos</li>
+      <li>check out the texts</li>
+      <li>check out the others</li>
+    </ol>
+    <p>new tube world reflects in an accretion of rings</p>
+    <p>if you have coordinates punch them in below</p>
+
+    <form class="coordinate-form" id="coordinate-form" novalidate>
+      <label for="coordinate-input">go to coordinates</label>
+      <input id="coordinate-input" name="coordinate" type="text" inputmode="text" autocomplete="off" placeholder="(x, y)" aria-describedby="coordinate-status">
+      <button type="submit">go</button>
+      <span id="coordinate-status" class="coordinate-status" role="status"></span>
+    </form>
   </div>
-{% endif %}
+
+  <div class="tube-map-wrap">
+    <svg class="tube-map" id="tube-map" viewBox="0 0 800 370" role="img" aria-labelledby="tube-map-title tube-map-description">
+      <title id="tube-map-title">Map of the c75525 tube world</title>
+      <desc id="tube-map-description">A scaled representation of published rings, ring objects, and authored connections.</desc>
+      <g class="tube-map-connections" id="tube-map-connections"></g>
+      <g class="tube-map-rings" id="tube-map-rings"></g>
+      <g class="tube-map-nodes" id="tube-map-nodes"></g>
+    </svg>
+    <noscript><p class="tube-map-fallback">The interactive tube map needs JavaScript. <a href="{{ '/archive/' | relative_url }}">Browse the archive.</a></p></noscript>
+  </div>
+
+  {% if tube_posts.size > 0 %}
+    <p class="splash-enter"><a id="random-entry" href="{{ tube_posts.first.url | relative_url }}">enter</a></p>
+  {% else %}
+    <p class="splash-enter"><a href="{{ '/archive/' | relative_url }}">archive</a></p>
+  {% endif %}
+  <p class="splash-archive"><a href="{{ '/archive/' | relative_url }}">archive</a></p>
+</section>
+<script>
+(function () {
+  var objectsUrl = {{ '/tube-objects.json' | relative_url | jsonify }};
+  var form = document.getElementById('coordinate-form');
+  var input = document.getElementById('coordinate-input');
+  var status = document.getElementById('coordinate-status');
+  var entry = document.getElementById('random-entry');
+  var svg = document.getElementById('tube-map');
+  var ringsLayer = document.getElementById('tube-map-rings');
+  var connectionsLayer = document.getElementById('tube-map-connections');
+  var nodesLayer = document.getElementById('tube-map-nodes');
+  var svgNs = 'http://www.w3.org/2000/svg';
+  function fail(message) {
+    status.textContent = message;
+    input.classList.remove('coordinate-fail');
+    void input.offsetWidth;
+    input.classList.add('coordinate-fail');
+    input.focus();
+  }
+  function parse(value) {
+    var match = value.trim().match(/^\(?\s*(-?\d+)\s*,\s*(-?\d+)\s*\)?$/);
+    return match ? match[1] + ',' + match[2] : null;
+  }
+  function svgElement(name, attributes) {
+    var element = document.createElementNS(svgNs, name);
+    Object.keys(attributes).forEach(function (key) { element.setAttribute(key, attributes[key]); });
+    return element;
+  }
+  function renderMap(objects) {
+    var rings = Array.from(new Set(objects.map(function (object) { return Number(object.ring); })))
+      .filter(Number.isFinite).sort(function (a, b) { return a - b; });
+    if (!rings.length) return;
+    var centerX = 400, centerY = 155, outerX = 350, outerY = 111, innerX = 25, innerY = 8;
+    var positions = new Map();
+    var byUrl = new Map(objects.map(function (object) { return [object.url, object]; }));
+    var groups = new Map(rings.map(function (ring) { return [ring, []]; }));
+    objects.forEach(function (object) { if (groups.has(Number(object.ring))) groups.get(Number(object.ring)).push(object); });
+    ringsLayer.appendChild(svgElement('path', { d: 'M50 155v180M750 155v180' }));
+    rings.forEach(function (ring, ringIndex) {
+      var progress = rings.length === 1 ? 1 : ringIndex / (rings.length - 1);
+      var radiusX = innerX + (outerX - innerX) * progress;
+      var radiusY = innerY + (outerY - innerY) * progress;
+      var objectsOnRing = groups.get(ring).sort(function (a, b) { return Number(a.object) - Number(b.object); });
+      ringsLayer.appendChild(svgElement('ellipse', { cx: centerX, cy: centerY, rx: radiusX, ry: radiusY }));
+      var baseRadius = Math.max(2.25, Math.min(7, 11 / Math.sqrt(rings.length + objectsOnRing.length / 8)));
+      objectsOnRing.forEach(function (object, objectIndex) {
+        var angle = -Math.PI / 2 + (Math.PI * 2 * objectIndex / objectsOnRing.length);
+        var radius = Math.min(baseRadius, Math.max(2.25, (Math.PI * 2 * radiusX / objectsOnRing.length) * .3));
+        positions.set(object.url, { x: centerX + Math.cos(angle) * radiusX, y: centerY + Math.sin(angle) * radiusY, r: radius });
+      });
+    });
+    var drawnConnections = new Set();
+    objects.forEach(function (object) {
+      Object.keys(object.nav || {}).forEach(function (direction) {
+        var targetUrl = object.nav[direction];
+        if (!byUrl.has(targetUrl) || !positions.has(object.url) || !positions.has(targetUrl)) return;
+        var key = [object.url, targetUrl].sort().join('|');
+        if (drawnConnections.has(key)) return;
+        drawnConnections.add(key);
+        var start = positions.get(object.url), end = positions.get(targetUrl);
+        connectionsLayer.appendChild(svgElement('line', { x1: start.x, y1: start.y, x2: end.x, y2: end.y }));
+      });
+    });
+    objects.forEach(function (object) {
+      var position = positions.get(object.url);
+      if (!position) return;
+      var link = svgElement('a', { href: object.url, 'aria-label': 'Enter ' + object.title + ', ring ' + object.ring + ', object ' + object.object });
+      link.setAttribute('class', 'tube-map-node');
+      link.appendChild(svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 }));
+      nodesLayer.appendChild(link);
+    });
+  }
+  fetch(objectsUrl)
+    .then(function (response) { if (!response.ok) throw new Error(); return response.json(); })
+    .then(function (objects) {
+      if (!Array.isArray(objects)) throw new Error();
+      renderMap(objects);
+      if (entry && objects.length) entry.href = objects[Math.floor(Math.random() * objects.length)].url;
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var coordinate = parse(input.value);
+        var target = coordinate && objects.find(function (object) { return object.coordinate === coordinate; });
+        if (target && typeof target.url === 'string') window.location.assign(target.url);
+        else fail(coordinate ? 'nothing there' : 'use x, y');
+      });
+    })
+    .catch(function () {
+      if (entry) entry.removeAttribute('id');
+      form.addEventListener('submit', function (event) { event.preventDefault(); fail('lookup unavailable'); });
+    });
+}());
+</script>

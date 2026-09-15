@@ -1,0 +1,25 @@
+<section class="tube-panel" aria-label="c75525 location">
+  <p class="tube-coordinate">c75525 / ring {{ page.tube.ring | escape }} / object {{ page.tube.object | escape }}{% if page.tube.coordinate %} / ({{ page.tube.coordinate | join: ', ' | escape }}){% endif %}</p>
+  {% assign directions = 'inward,counterclockwise,clockwise,outward,branch' | split: ',' %}
+  {% capture tube_links %}
+    {% for direction in directions %}
+      {% assign destination = page.tube.nav[direction] %}
+      {% assign target = site.posts | where: 'url', destination | first %}
+      {% if destination and target.tube.world == 'c75525' and target.url != page.url %}
+        {% case direction %}
+          {% when 'inward' %}{% assign label = 'Move inward toward the core' %}{% assign arrow = '↑ core' %}
+          {% when 'outward' %}{% assign label = 'Move outward toward newer rings' %}{% assign arrow = 'outer ↓' %}
+          {% when 'clockwise' %}{% assign label = 'Move clockwise around this ring' %}{% assign arrow = 'clockwise →' %}
+          {% when 'counterclockwise' %}{% assign label = 'Move counterclockwise around this ring' %}{% assign arrow = '← counterclockwise' %}
+          {% when 'branch' %}{% assign label = 'Move into a branch' %}{% assign arrow = 'branch ↗' %}
+        {% endcase %}
+        <a class="tube-arrow tube-arrow-{{ direction }}" href="{{ target.url | relative_url }}" aria-label="{{ label }}">{{ arrow }}</a>
+      {% endif %}
+    {% endfor %}
+  {% endcapture %}
+  {% assign tube_links = tube_links | strip %}
+  {% if tube_links != '' %}
+    <nav class="tube-nav" aria-label="Navigate c75525">{{ tube_links }}</nav>
+  {% endif %}
+  <p class="tube-exits"><a href="{{ '/enter-c75525/' | relative_url }}">Random location</a> · <a href="{{ '/archive/' | relative_url }}">Blog archive</a></p>
+</section>

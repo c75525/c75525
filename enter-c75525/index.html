@@ -1,0 +1,48 @@
+---
+layout: default
+permalink: /enter-c75525/
+---
+<section class="tube-entry" aria-label="Enter c75525">
+  <h1>Entering c75525</h1>
+  <p id="tube-entry-status" role="status">Choosing a random location…</p>
+  <noscript><p>Random entry needs JavaScript. Choose a location below instead.</p></noscript>
+  {% assign tube_posts = site.posts | where_exp: 'post', "post.tube.world == 'c75525'" %}
+  {% if tube_posts.size > 0 %}
+    <details>
+      <summary>Choose a location manually</summary>
+      <ul>
+        {% for post in tube_posts %}
+          <li><a href="{{ post.url | relative_url }}">{{ post.title | escape }} — ring {{ post.tube.ring | escape }} / object {{ post.tube.object | escape }}</a></li>
+        {% endfor %}
+      </ul>
+    </details>
+  {% endif %}
+  <p><a href="{{ '/' | relative_url }}">Return to the blog archive</a></p>
+</section>
+<script>
+(function () {
+  var status = document.getElementById('tube-entry-status');
+  fetch({{ '/tube-objects.json' | relative_url | jsonify }})
+    .then(function (response) {
+      if (!response.ok) throw new Error('Could not load locations');
+      return response.json();
+    })
+    .then(function (objects) {
+      if (!Array.isArray(objects)) throw new Error('Invalid location list');
+      var locations = objects.filter(function (object) {
+        return object && typeof object.url === 'string' &&
+          object.url.charAt(0) === '/' &&
+          new URL(object.url, window.location.href).origin === window.location.origin;
+      });
+      if (!locations.length) {
+        status.textContent = 'No c75525 locations are available yet. Visit the blog archive instead.';
+        return;
+      }
+      var target = locations[Math.floor(Math.random() * locations.length)];
+      window.location.replace(target.url);
+    })
+    .catch(function () {
+      status.textContent = 'Random entry is unavailable. Choose a location below or return to the blog archive.';
+    });
+}());
+</script>
