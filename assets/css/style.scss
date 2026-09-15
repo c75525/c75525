@@ -1,13 +1,19 @@
 ---
 ---
 nav ul,
-footer { display: none; }
+footer,
+.site-footer { display: none !important; }
+html,
+body {
+  min-height: 100%;
+  background: #000 !important;
+}
 * {
-  background-color: #c75525;
-  color: #472e26 !important;
+  background-color: #000;
+  color: #fff !important;
   font-family: Helvetica, sans-serif !important;
   font-size: 1rem;
-  border-top-color: #ff9b4f !important;
+  border-top-color: #fff !important;
   animation: none !important;
   transition: none !important;
 }
@@ -21,8 +27,8 @@ main { margin-top: 0 !important; padding-top: 0 !important; }
 .post-grid-item:hover::after { opacity: 1; }
 .post-title { font-size: 2rem; }
 .post-line { border-top: .1rem solid; }
-a, .nav-title, .nav a { color: #d9580d; }
-h1, h2, h3 { color: #8c2804; }
+a, .nav-title, .nav a { color: #fff; }
+h1, h2, h3 { color: #fff; }
 .post-content img { margin-bottom: 2rem; margin-top: 2rem; }
 .post-content img + img { margin-top: -1rem; }
 .img-wrap { position: absolute; }
