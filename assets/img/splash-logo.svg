@@ -4,18 +4,18 @@
     <style>
       .cls-1 {
         fill: none;
-        stroke: #fff;
+        stroke: #472e26;
         stroke-miterlimit: 10;
       }
 
       .cls-2 {
-        fill: #fff;
+        fill: #472e26;
         font-family: MyriadPro-Regular, 'Myriad Pro';
         font-size: 13.81px;
       }
 
-      path:not(.cls-1) { fill: #fff; }
-      text { fill: #fff; }
+      path:not(.cls-1) { fill: #472e26; }
+      text { fill: #472e26; }
 
       .cls-3 {
         letter-spacing: 0em;
