@@ -126,11 +126,16 @@ layout: splash
     });
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       var startedAt = performance.now();
+      var orbitSteps = 120;
+      var stepAngle = (Math.PI * 2) / orbitSteps;
       function animateRings(now) {
         var elapsed = (now - startedAt) / 1000;
         animatedNodes.forEach(function (node) {
           var position = node.position;
-          var angle = position.angle + elapsed * position.speed;
+          var travelled = elapsed * position.speed;
+          /* Snap each object to a fixed set of positions around its track. */
+          var steppedTravel = Math.sign(travelled) * Math.floor(Math.abs(travelled) / stepAngle) * stepAngle;
+          var angle = position.angle + steppedTravel;
           position.x = centerX + Math.cos(angle) * position.radiusX;
           position.y = centerY + Math.sin(angle) * position.radiusY;
           /* Objects recede across the upper/back half of a ring and grow toward its front. */
