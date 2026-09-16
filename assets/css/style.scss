@@ -82,7 +82,7 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
   transform: translateX(-50%);
   transform-origin: center top;
   /* The projection's SVG supplies the silhouette; the repeating gradient supplies its hatch. */
-  background: repeating-linear-gradient(-45deg, #777 0 1px, transparent 1px 4px);
+  background: repeating-linear-gradient(-45deg, #fff 0 1px, transparent 1px 4px);
   -webkit-mask: url('../img/shadow.svg') center / 100% 100% no-repeat;
   mask: url('../img/shadow.svg') center / 100% 100% no-repeat;
 }
