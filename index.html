@@ -79,7 +79,7 @@ layout: splash
     var groups = new Map(rings.map(function (ring) { return [ring, []]; }));
     objects.forEach(function (object) { if (groups.has(Number(object.ring))) groups.get(Number(object.ring)).push(object); });
     /* The tube walls deliberately continue far below the ring plane. */
-    ringsLayer.appendChild(svgElement('path', { d: 'M50 155v1010M750 155v1010' }));
+    ringsLayer.appendChild(svgElement('path', { d: 'M50 155v1045M750 155v1045' }));
     rings.forEach(function (ring, ringIndex) {
       var progress = rings.length === 1 ? 1 : ringIndex / (rings.length - 1);
       var radiusX = innerX + (outerX - innerX) * progress;

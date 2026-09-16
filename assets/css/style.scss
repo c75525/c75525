@@ -67,8 +67,9 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .tube-post-body .tube-arrow:focus-visible,
 .tube-post-body .tube-exits a:hover,
 .tube-post-body .tube-exits a:focus-visible { background: var(--text) !important; color: var(--page-bg) !important; outline: none; }
+.splash-body { margin: 0; }
 .splash-main { width: 100%; max-width: none !important; margin: 0 !important; }
-.splash { min-height: 100vh; padding: 2rem 1.25rem 3rem; overflow: hidden; isolation: isolate; }
+.splash { min-height: 100vh; padding: 2rem 1.25rem 0; overflow: hidden; isolation: isolate; }
 .splash-art { position: relative; max-width: 850px; margin: 0 auto clamp(2rem, 8vw, 5rem); overflow: visible; }
 .splash-art::before,
 .splash-art::after { content: none; }
