@@ -137,8 +137,12 @@ layout: splash
           var angle = position.angle + elapsed * position.speed;
           position.x = centerX + Math.cos(angle) * position.radiusX;
           position.y = centerY + Math.sin(angle) * position.radiusY;
+          /* Objects recede across the upper/back half of a ring and grow toward its front. */
+          var perspective = 0.78 + 0.36 * ((Math.sin(angle) + 1) / 2);
           node.ellipse.setAttribute('cx', position.x);
           node.ellipse.setAttribute('cy', position.y);
+          node.ellipse.setAttribute('rx', position.r * perspective);
+          node.ellipse.setAttribute('ry', position.r * 0.48 * perspective);
         });
         animatedConnections.forEach(function (connection) {
           connection.line.setAttribute('x1', connection.start.x);
