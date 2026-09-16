@@ -88,8 +88,9 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .splash-copy ol { margin: 0; padding-left: 1.3rem; }
 .coordinate-form { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 .coordinate-form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.coordinate-form input { width: 7rem; padding: .25rem .4rem; background: var(--panel-bg) !important; border: 1px solid var(--border); border-radius: 0; outline: 0; }
-.coordinate-form button { padding: .25rem .5rem; background: var(--panel-bg) !important; border: 1px solid var(--border); cursor: pointer; }
+.coordinate-form input { width: 7rem; padding: .25rem .4rem; background: var(--panel-bg) !important; border: 1px solid var(--text); border-radius: 0; outline: 0; }
+.coordinate-form input::placeholder { color: var(--text); opacity: 1; }
+.coordinate-form button { padding: .25rem .5rem; background: var(--panel-bg) !important; border: 1px solid var(--text); cursor: pointer; }
 .coordinate-status { min-height: 1.2em; flex-basis: 100%; }
 .coordinate-fail { animation: coordinate-shake .22s linear !important; }
 @keyframes coordinate-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
