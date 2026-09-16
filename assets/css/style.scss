@@ -69,7 +69,7 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .tube-post-body .tube-exits a:focus-visible { background: var(--text) !important; color: var(--page-bg) !important; outline: none; }
 .splash-body { margin: 0; }
 .splash-main { width: 100%; max-width: none !important; margin: 0 !important; }
-.splash { min-height: 100vh; padding: 2rem 1.25rem 0; overflow: hidden; isolation: isolate; }
+.splash { min-height: 100vh; padding: 2rem 1.25rem 3rem; overflow: hidden; isolation: isolate; }
 .splash-art { position: relative; max-width: 850px; margin: 0 auto clamp(2rem, 8vw, 5rem); overflow: visible; }
 .splash-art::before,
 .splash-art::after { content: none; }
@@ -93,20 +93,8 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .coordinate-status { min-height: 1.2em; flex-basis: 100%; }
 .coordinate-fail { animation: coordinate-shake .22s linear !important; }
 @keyframes coordinate-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-.tube-map-wrap { position: relative; width: min(100%, 850px); margin: 1rem auto 0; }
+.tube-map-wrap { width: min(100%, 850px); margin: 1rem auto 0; }
 .tube-map { display: block; width: 100%; height: auto; }
-.tube-map-wrap .splash-enter {
-  position: absolute;
-  /* Below the rim, inside the descending tube wall. */
-  top: 39%;
-  left: 50%;
-  z-index: 4;
-  margin: 0;
-  padding: .12rem .4rem;
-  transform: translate(-50%, -50%);
-  background: var(--page-bg);
-  border: 1px solid var(--border);
-}
 .tube-map-rings ellipse, .tube-map-rings path { fill: none; stroke: var(--text); stroke-width: 1; }
 .tube-map-connections line { stroke: var(--text); stroke-width: 1; stroke-dasharray: 3 3; opacity: .7; }
 .tube-map-node ellipse { fill: var(--page-bg); stroke: var(--text); stroke-width: 2; }
