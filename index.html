@@ -22,6 +22,12 @@ layout: splash
     </form>
   </div>
 
+  {% if tube_posts.size > 0 %}
+    <p class="splash-enter"><a id="random-entry" href="{{ tube_posts.first.url | relative_url }}">enter</a></p>
+  {% else %}
+    <p class="splash-enter"><a href="{{ '/archive/' | relative_url }}">archive</a></p>
+  {% endif %}
+
   <div class="tube-map-wrap">
     <svg class="tube-map" id="tube-map" viewBox="0 0 800 760" role="img" aria-labelledby="tube-map-title tube-map-description">
       <title id="tube-map-title">Map of the c75525 tube world</title>
@@ -33,11 +39,6 @@ layout: splash
     <noscript><p class="tube-map-fallback">The interactive tube map needs JavaScript. <a href="{{ '/archive/' | relative_url }}">Browse the archive.</a></p></noscript>
   </div>
 
-  {% if tube_posts.size > 0 %}
-    <p class="splash-enter"><a id="random-entry" href="{{ tube_posts.first.url | relative_url }}">enter</a></p>
-  {% else %}
-    <p class="splash-enter"><a href="{{ '/archive/' | relative_url }}">archive</a></p>
-  {% endif %}
 </section>
 <script>
 (function () {
