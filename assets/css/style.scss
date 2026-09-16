@@ -69,23 +69,8 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .tube-post-body .tube-exits a:focus-visible { background: var(--text) !important; color: var(--page-bg) !important; outline: none; }
 .splash-main { width: 100%; max-width: none !important; margin: 0 !important; }
 .splash { min-height: 100vh; padding: 2rem 1.25rem 3rem; overflow: hidden; isolation: isolate; }
-.splash-art { position: relative; max-width: 850px; margin: 0 auto clamp(4rem, 22vw, 12rem); overflow: visible; }
-.splash-art::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  z-index: 2;
-  width: 156%;
-  aspect-ratio: 1428.06 / 240.52;
-  pointer-events: none;
-  transform: translateX(-50%);
-  transform-origin: center top;
-  /* The projection's SVG supplies the silhouette; the repeating gradient supplies its hatch. */
-  background: repeating-linear-gradient(-45deg, #777 0 1px, transparent 1px 4px);
-  -webkit-mask: url('../img/shadow.svg') center / 100% 100% no-repeat;
-  mask: url('../img/shadow.svg') center / 100% 100% no-repeat;
-}
+.splash-art { position: relative; max-width: 850px; margin: 0 auto clamp(2rem, 8vw, 5rem); overflow: visible; }
+.splash-art::before,
 .splash-art::after { content: none; }
 .splash-art img {
   position: relative;
