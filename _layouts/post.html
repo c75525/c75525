@@ -2,8 +2,10 @@
 layout: default
 ---
 <div class="post">
-  <h1 class="post-title">{{ page.title }}</h1>
-  <div class="post-line"></div>
+  {% if page.title and page.title != '' %}
+    <h1 class="post-title">{{ page.title }}</h1>
+    <div class="post-line"></div>
+  {% endif %}
   <div class="post-content">
     {{ content }}
   </div>
