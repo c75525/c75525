@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 938.06 636.69">
+  <defs>
+    <pattern id="crosshatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+      <line x1="0" y1="0" x2="0" y2="5" stroke="#fff" stroke-width="1"/>
+    </pattern>
+    <style>
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-3 {
+        stroke: #000;
+      }
+
+      .cls-1, .cls-4, .cls-5 {
+        fill: none;
+      }
+
+      .cls-2, .cls-7, .cls-3 {
+        fill: url(#crosshatch);
+      }
+
+      .cls-2, .cls-4, .cls-5, .cls-6 {
+        stroke: #fff;
+      }
+
+      .cls-5 {
+        stroke-width: 4px;
+      }
+    </style>
+  </defs>
+  <rect x="-7.2" y="-3.09" width="958.63" height="663.43"/>
+  <g>
+    <g>
+      <circle class="cls-1" cx="528.04" cy="371.14" r="19.1"/>
+      <circle class="cls-3" cx="541.55" cy="357.63" r="13.86"/>
+      <circle class="cls-6" cx="509.58" cy="366.19" r="13.86"/>
+      <circle class="cls-3" cx="532.98" cy="389.59" r="13.86"/>
+    </g>
+    <g>
+      <circle class="cls-4" cx="528.04" cy="371.14" r="95.79"/>
+      <circle class="cls-2" cx="595.77" cy="303.4" r="13.86"/>
+      <circle class="cls-6" cx="503.25" cy="278.59" r="13.86"/>
+      <circle class="cls-6" cx="435.49" cy="346.35" r="13.86"/>
+      <circle class="cls-2" cx="460.31" cy="438.87" r="13.86"/>
+      <circle class="cls-2" cx="552.82" cy="463.68" r="13.86"/>
+      <circle class="cls-2" cx="620.58" cy="395.92" r="13.86"/>
+    </g>
+    <g>
+      <circle class="cls-4" cx="528.04" cy="371.14" r="172.48"/>
+      <circle class="cls-6" cx="650" cy="249.17" r="13.86"/>
+      <circle class="cls-6" cx="543.07" cy="199.31" r="13.86"/>
+      <circle class="cls-6" cx="429.11" cy="229.81" r="13.86"/>
+      <circle class="cls-2" cx="361.4" cy="326.51" r="13.86"/>
+      <circle class="cls-2" cx="371.67" cy="444.02" r="13.86"/>
+      <circle class="cls-2" cx="455.15" cy="527.51" r="13.86"/>
+      <circle class="cls-2" cx="572.67" cy="537.77" r="13.86"/>
+      <circle class="cls-2" cx="669.36" cy="470.07" r="13.86"/>
+      <circle class="cls-2" cx="699.87" cy="356.11" r="13.86"/>
+    </g>
+    <g>
+      <line class="cls-4" x1="506.47" y1="366.19" x2="98.99" y2="366.19"/>
+      <polygon class="cls-7" points="505.52 372.63 509.58 366.19 505.52 359.76 505.48 359.76 505.48 372.63 505.52 372.63"/>
+      <polygon class="cls-7" points="99.8 372.27 99.8 360.12 93.73 366.19 99.8 372.27"/>
+    </g>
+    <g>
+      <line class="cls-4" x1="429.33" y1="227.02" x2="252.82" y2="50.51"/>
+      <path class="cls-7" d="M255.61,47.98c-1.47-1.47-3.85-1.47-5.32,0-1.47,1.47-1.47,3.85,0,5.32,1.47,1.47,3.85,1.47,5.32,0s1.47-3.85,0-5.32Z"/>
+    </g>
+    <g>
+      <line class="cls-4" x1="502.74" y1="204.54" x2="444.98" y2="38.12"/>
+      <path class="cls-7" d="M448.59,37.07c-.68-1.96-2.82-3-4.78-2.32-1.96.68-3,2.82-2.32,4.78.68,1.96,2.82,3,4.78,2.32,1.96-.68,3-2.82,2.32-4.78Z"/>
+    </g>
+    <g>
+      <line class="cls-4" x1="434.07" y1="346.58" x2="254.11" y2="173.6"/>
+      <path class="cls-7" d="M256.86,171.02c-1.5-1.44-3.88-1.39-5.32.1-1.44,1.5-1.39,3.88.1,5.32,1.5,1.44,3.88,1.39,5.32-.1,1.44-1.5,1.39-3.88-.1-5.32Z"/>
+    </g>
+    <g>
+      <line class="cls-4" x1="650" y1="249.17" x2="719.17" y2="169.06"/>
+      <path class="cls-7" d="M721.89,171.66c1.36-1.57,1.18-3.95-.39-5.3-1.57-1.36-3.95-1.18-5.3.39-1.36,1.57-1.18,3.95.39,5.3s3.95,1.18,5.3-.39Z"/>
+    </g>
+    <polyline class="cls-5" points="434 347.85 503.49 278.7 481.76 204.54 543.94 201.55 650.81 249.99"/>
+    <path class="cls-4" d="M503.49,278.7s293.65-5.99,297.02-5.99,12.36,261.81,12.36,261.81l31.46,67.42"/>
+  </g>
+</svg>
