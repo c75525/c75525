@@ -96,7 +96,8 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .tube-map { display: block; width: 100%; height: auto; }
 .tube-map-wrap .splash-enter {
   position: absolute;
-  top: 20.4%;
+  /* Below the rim, inside the descending tube wall. */
+  top: 39%;
   left: 50%;
   z-index: 4;
   margin: 0;

@@ -23,7 +23,7 @@ layout: splash
   </div>
 
   <div class="tube-map-wrap">
-    <svg class="tube-map" id="tube-map" viewBox="0 0 800 760" role="img" aria-labelledby="tube-map-title tube-map-description">
+    <svg class="tube-map" id="tube-map" viewBox="0 0 800 1200" role="img" aria-labelledby="tube-map-title tube-map-description">
       <title id="tube-map-title">Map of the c75525 tube world</title>
       <desc id="tube-map-description">A scaled representation of published rings, ring objects, and authored connections.</desc>
       <g class="tube-map-connections" id="tube-map-connections"></g>
@@ -79,7 +79,7 @@ layout: splash
     var groups = new Map(rings.map(function (ring) { return [ring, []]; }));
     objects.forEach(function (object) { if (groups.has(Number(object.ring))) groups.get(Number(object.ring)).push(object); });
     /* The tube walls deliberately continue far below the ring plane. */
-    ringsLayer.appendChild(svgElement('path', { d: 'M50 155v570M750 155v570' }));
+    ringsLayer.appendChild(svgElement('path', { d: 'M50 155v1010M750 155v1010' }));
     rings.forEach(function (ring, ringIndex) {
       var progress = rings.length === 1 ? 1 : ringIndex / (rings.length - 1);
       var radiusX = innerX + (outerX - innerX) * progress;
