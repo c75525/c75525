@@ -77,6 +77,8 @@ layout: splash
     if (!rings.length) return;
     var centerX = 400, centerY = 155, outerX = 350, outerY = 111, innerX = 25, innerY = 8;
     var positions = new Map();
+    var animatedNodes = [];
+    var animatedConnections = [];
     var byUrl = new Map(objects.map(function (object) { return [object.url, object]; }));
     var groups = new Map(rings.map(function (ring) { return [ring, []]; }));
     objects.forEach(function (object) { if (groups.has(Number(object.ring))) groups.get(Number(object.ring)).push(object); });
@@ -91,7 +93,15 @@ layout: splash
       objectsOnRing.forEach(function (object, objectIndex) {
         var angle = -Math.PI / 2 + (Math.PI * 2 * objectIndex / objectsOnRing.length);
         var radius = Math.min(baseRadius, Math.max(2.25, (Math.PI * 2 * radiusX / objectsOnRing.length) * .3));
-        positions.set(object.url, { x: centerX + Math.cos(angle) * radiusX, y: centerY + Math.sin(angle) * radiusY, r: radius });
+        positions.set(object.url, {
+          x: centerX + Math.cos(angle) * radiusX,
+          y: centerY + Math.sin(angle) * radiusY,
+          r: radius,
+          angle: angle,
+          radiusX: radiusX,
+          radiusY: radiusY,
+          speed: (0.07 + ringIndex * 0.012) * (ringIndex % 2 ? -1 : 1)
+        });
       });
     });
     var drawnConnections = new Set();
@@ -103,7 +113,9 @@ layout: splash
         if (drawnConnections.has(key)) return;
         drawnConnections.add(key);
         var start = positions.get(object.url), end = positions.get(targetUrl);
-        connectionsLayer.appendChild(svgElement('line', { x1: start.x, y1: start.y, x2: end.x, y2: end.y }));
+        var line = svgElement('line', { x1: start.x, y1: start.y, x2: end.x, y2: end.y });
+        connectionsLayer.appendChild(line);
+        animatedConnections.push({ line: line, start: start, end: end });
       });
     });
     objects.forEach(function (object) {
@@ -111,9 +123,33 @@ layout: splash
       if (!position) return;
       var link = svgElement('a', { href: object.url, 'aria-label': 'Enter ' + object.title + ', ring ' + object.ring + ', object ' + object.object });
       link.setAttribute('class', 'tube-map-node');
-      link.appendChild(svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 }));
+      var ellipse = svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 });
+      link.appendChild(ellipse);
       nodesLayer.appendChild(link);
+      animatedNodes.push({ ellipse: ellipse, position: position });
     });
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var startedAt = performance.now();
+      function animateRings(now) {
+        var elapsed = (now - startedAt) / 1000;
+        animatedNodes.forEach(function (node) {
+          var position = node.position;
+          var angle = position.angle + elapsed * position.speed;
+          position.x = centerX + Math.cos(angle) * position.radiusX;
+          position.y = centerY + Math.sin(angle) * position.radiusY;
+          node.ellipse.setAttribute('cx', position.x);
+          node.ellipse.setAttribute('cy', position.y);
+        });
+        animatedConnections.forEach(function (connection) {
+          connection.line.setAttribute('x1', connection.start.x);
+          connection.line.setAttribute('y1', connection.start.y);
+          connection.line.setAttribute('x2', connection.end.x);
+          connection.line.setAttribute('y2', connection.end.y);
+        });
+        window.requestAnimationFrame(animateRings);
+      }
+      window.requestAnimationFrame(animateRings);
+    }
   }
   fetch(objectsUrl)
     .then(function (response) { if (!response.ok) throw new Error(); return response.json(); })
