@@ -1,6 +1,7 @@
 ---
 layout: splash
 ---
+{% assign tube_posts = site.posts | where_exp: 'post', "post.tube.world == 'c75525'" %}
 <section class="splash" aria-labelledby="splash-title">
   <div class="splash-art" aria-hidden="true">
     <img src="{{ '/assets/img/logo-outline.svg' | relative_url }}?v={{ site.time | date: '%s' }}" alt="">
@@ -14,6 +15,11 @@ layout: splash
     </blockquote>
     <p>This is my tube world.</p>
 
+    {% if tube_posts.size > 0 %}
+      <p class="splash-enter"><a id="random-entry" href="{{ tube_posts.first.url | relative_url }}">enter</a></p>
+    {% else %}
+      <p class="splash-enter"><a href="{{ '/archive/' | relative_url }}">archive</a></p>
+    {% endif %}
   </div>
 
   <div class="tube-map-wrap">
@@ -39,6 +45,7 @@ layout: splash
   var form = document.getElementById('coordinate-form');
   var input = document.getElementById('coordinate-input');
   var status = document.getElementById('coordinate-status');
+  var entry = document.getElementById('random-entry');
   var svg = document.getElementById('tube-map');
   var ringsLayer = document.getElementById('tube-map-rings');
   var nodesLayer = document.getElementById('tube-map-nodes');
@@ -133,6 +140,7 @@ layout: splash
     .then(function (objects) {
       if (!Array.isArray(objects)) throw new Error();
       renderMap(objects);
+      if (entry && objects.length) entry.href = objects[Math.floor(Math.random() * objects.length)].url;
       form.addEventListener('submit', function (event) {
         event.preventDefault();
         var coordinate = parse(input.value);
@@ -142,6 +150,7 @@ layout: splash
       });
     })
     .catch(function () {
+      if (entry) entry.removeAttribute('id');
       form.addEventListener('submit', function (event) { event.preventDefault(); fail('lookup unavailable'); });
     });
 }());
