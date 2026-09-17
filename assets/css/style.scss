@@ -61,17 +61,17 @@ h1, h2, h3 { color: var(--text); }
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 53px;
-  height: 38px;
+  width: 55px;
+  height: 40px;
   background-image: url('../img/navigational-controls.svg');
   background-repeat: no-repeat;
   background-size: 255.16px 38.02px;
   transform: translate(-50%, -50%);
 }
-.tube-control-counterclockwise::before { background-position: 0 0; }
-.tube-control-inward::before { background-position: -67.77px 0; }
-.tube-control-outward::before { background-position: -135.04px 0; }
-.tube-control-clockwise::before { background-position: -202.31px 0; }
+.tube-control-counterclockwise::before { background-position: 1px 1px; }
+.tube-control-inward::before { background-position: -66.77px 1px; }
+.tube-control-outward::before { background-position: -134.04px 1px; }
+.tube-control-clockwise::before { background-position: -201.31px 1px; }
 .tube-control:hover,
 .tube-control:focus-visible { filter: invert(1); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
