@@ -6,7 +6,14 @@
         fill: #fff;
       }
 
-      .cls-2, .cls-4 {
+      .cls-2 {
+        fill: #fff;
+        stroke: #fff;
+        stroke-width: 1;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4 {
         fill: #000;
         stroke: #fff;
         stroke-width: 1;
