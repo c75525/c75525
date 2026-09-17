@@ -44,8 +44,26 @@ h1, h2, h3 { color: var(--text); }
 
 .tube-panel { margin: 2rem 0; padding: 1rem 0; border-top: .1rem solid; }
 .tube-coordinate { overflow-wrap: anywhere; }
-.tube-nav { display: flex; flex-wrap: wrap; gap: .5rem 1rem; }
+.tube-nav { display: flex; align-items: center; justify-content: space-evenly; gap: .75rem; width: 100%; }
 .tube-arrow { display: inline-flex; align-items: center; min-height: 44px; padding: .25rem .5rem; border: 1px solid currentColor; }
+.tube-control {
+  flex: 0 0 53px;
+  width: 53px;
+  min-height: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0 !important;
+  background-image: url('../img/navigational-controls.svg') !important;
+  background-repeat: no-repeat !important;
+  background-size: 255.16px 38.02px !important;
+}
+.tube-control-counterclockwise { background-position: 0 0 !important; }
+.tube-control-inward { background-position: -67.77px 0 !important; }
+.tube-control-outward { background-position: -135.04px 0 !important; }
+.tube-control-clockwise { background-position: -202.31px 0 !important; }
+.tube-control:hover,
+.tube-control:focus-visible { background-color: #fff !important; background-blend-mode: difference; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 .tube-panel a:focus-visible, .tube-entry a:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .tube-exits a, .tube-entry a { text-decoration: underline; }
 
@@ -62,9 +80,9 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .tube-post-body .pagination { border-color: var(--border) !important; }
 .tube-post-body .pagination .top { color: var(--text) !important; }
 .tube-post-body .tube-panel { border-color: var(--border) !important; }
-.tube-post-body .tube-arrow { background: var(--panel-bg) !important; border-color: var(--border) !important; text-decoration: none; }
-.tube-post-body .tube-arrow:hover,
-.tube-post-body .tube-arrow:focus-visible,
+.tube-post-body .tube-arrow:not(.tube-control) { background: var(--panel-bg) !important; border-color: var(--border) !important; text-decoration: none; }
+.tube-post-body .tube-arrow:not(.tube-control):hover,
+.tube-post-body .tube-arrow:not(.tube-control):focus-visible,
 .tube-post-body .tube-exits a:hover,
 .tube-post-body .tube-exits a:focus-visible { background: var(--text) !important; color: var(--page-bg) !important; outline: none; }
 .splash-body { margin: 0; }
