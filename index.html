@@ -79,8 +79,8 @@ layout: splash
     /* The tube walls deliberately continue far below the ring plane. */
     ringsLayer.appendChild(svgElement('path', { d: 'M50 155v180M750 155v180' }));
     rings.forEach(function (ring, ringIndex) {
-      var progress = rings.length === 1 ? 1 : ringIndex / (rings.length - 1);
-      var trackRadius = innerRadius + (outerRadius - innerRadius) * progress;
+      var progress = core ? (ringIndex + 1) / rings.length : (rings.length === 1 ? 1 : ringIndex / (rings.length - 1));
+      var trackRadius = core ? outerRadius * progress : innerRadius + (outerRadius - innerRadius) * progress;
       var radiusX = trackRadius;
       var radiusY = trackRadius * projection;
       var objectsOnRing = groups.get(ring).sort(function (a, b) { return Number(a.object) - Number(b.object); });
