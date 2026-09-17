@@ -99,7 +99,7 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .tube-map-rings ellipse, .tube-map-rings path { fill: none; stroke: var(--text); stroke-width: 1; }
 .tube-map-connections line { stroke: var(--text); stroke-width: 1; stroke-dasharray: 3 3; opacity: .7; }
 .tube-map-node ellipse { fill: var(--page-bg); stroke: var(--text); stroke-width: 2; }
-.tube-map-node[data-core] ellipse { fill: var(--text); }
+.tube-map-node[data-core] circle { fill: var(--text); stroke: var(--text); stroke-width: 2; }
 .tube-map-node:hover ellipse, .tube-map-node:focus ellipse { fill: var(--accent); }
 .splash-enter, .splash-archive { text-align: center; }
 .splash-enter { margin: 1.5rem 0 0; }

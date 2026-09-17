@@ -100,17 +100,19 @@ layout: splash
         });
       });
     });
-    if (core) positions.set(core.url, { x: centerX, y: centerY, r: 8, core: true });
+    if (core) positions.set(core.url, { x: centerX, y: centerY, r: 13, core: true });
     objects.forEach(function (object) {
       var position = positions.get(object.url);
       if (!position) return;
       var link = svgElement('a', { href: object.url, 'aria-label': 'Enter ' + object.title + ', ring ' + object.ring + ', object ' + object.object });
       link.setAttribute('class', 'tube-map-node');
       if (position.core) link.setAttribute('data-core', 'true');
-      var ellipse = svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 });
-      link.appendChild(ellipse);
+      var marker = position.core
+        ? svgElement('circle', { cx: position.x, cy: position.y, r: position.r })
+        : svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 });
+      link.appendChild(marker);
       nodesLayer.appendChild(link);
-      if (!position.core) animatedNodes.push({ ellipse: ellipse, position: position });
+      if (!position.core) animatedNodes.push({ ellipse: marker, position: position });
     });
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       var startedAt = performance.now();
