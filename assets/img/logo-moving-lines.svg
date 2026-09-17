@@ -2,14 +2,9 @@
 <svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 917.49 401.27">
   <defs>
     <pattern id="moving-diagonal-lines" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M-16 40L24 0" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" stroke-dasharray="60 0">
-        <animate attributeName="stroke-dasharray" values="60 0;12 6;.01 1.4;12 6;60 0" keyTimes="0;.35;.5;.65;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
-      </path>
-      <circle cx=".5" cy=".5" r="0" fill="#fff">
-        <animate attributeName="r" values="0;0;.71;0;0" keyTimes="0;.35;.5;.65;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
-      </circle>
-      <animate attributeName="width" values="32;16;1;16;32" keyTimes="0;.35;.5;.65;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
-      <animate attributeName="height" values="32;16;1;16;32" keyTimes="0;.35;.5;.65;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
+      <path d="M-16 40L24 0" fill="none" stroke="#fff" stroke-width="1"/>
+      <animate attributeName="width" values="32;16;2;16;32" keyTimes="0;.35;.5;.65;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="32;16;2;16;32" keyTimes="0;.35;.5;.65;1" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
       <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="32 32" dur="3.2s" repeatCount="indefinite"/>
     </pattern>
     <style>
