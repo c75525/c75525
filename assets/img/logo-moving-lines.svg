@@ -3,6 +3,8 @@
   <defs>
     <pattern id="moving-diagonal-lines" width="32" height="32" patternUnits="userSpaceOnUse">
       <path d="M-16 40L24 0" fill="none" stroke="#fff" stroke-width="1"/>
+      <animate attributeName="width" values="32;16;32" keyTimes="0;.5;1" keySplines=".45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="32;16;32" keyTimes="0;.5;1" keySplines=".45 0 .55 1;.45 0 .55 1" calcMode="spline" dur="7s" repeatCount="indefinite"/>
       <animateTransform attributeName="patternTransform" type="translate" from="0 0" to="32 32" dur="3.2s" repeatCount="indefinite"/>
     </pattern>
     <style>
@@ -10,6 +12,10 @@
         fill: none;
         stroke: url(#moving-diagonal-lines);
         stroke-width: 1;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #moving-diagonal-lines animate,
+        #moving-diagonal-lines animateTransform { display: none; }
       }
     </style>
   </defs>
