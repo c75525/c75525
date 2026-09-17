@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "22222222222222222222222222222222"
+title: ""
 cover_images:
   - url: https://live.staticflickr.com/65535/55197135967_5fcf37647e_b.jpg
     top: 0
