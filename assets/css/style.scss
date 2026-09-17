@@ -87,6 +87,7 @@ body.splash-body * { color: var(--text) !important; border-color: var(--border) 
 .splash-copy p { margin: 1.4rem 0; }
 .splash-copy ol { margin: 0; padding-left: 1.3rem; }
 .coordinate-form { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.splash > .coordinate-form { width: min(100%, 430px); margin: 1.5rem auto 0; }
 .coordinate-form label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .coordinate-form input { width: 7rem; padding: .25rem .4rem; background: var(--panel-bg) !important; border: 1px solid var(--text); border-radius: 0; outline: 0; }
 .coordinate-form input::placeholder { color: var(--text); opacity: 1; }
