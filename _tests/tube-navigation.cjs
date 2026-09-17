@@ -7,7 +7,7 @@ const baseurl = process.argv[2] ?? '';
 const site = path.join(__dirname, '..', '_site');
 const read = (name) => fs.readFileSync(path.join(site, name), 'utf8');
 const objects = JSON.parse(read('tube-objects.json'));
-assert.equal(objects.length, 2);
+assert.ok(objects.length >= 2);
 for (const object of objects) {
   assert.ok(object.url.startsWith(baseurl + '/'));
   assert.match(object.coordinate, /^-?\d+,-?\d+$/);
@@ -15,8 +15,8 @@ for (const object of objects) {
   const html = read(object.url.slice(baseurl.length));
   assert.ok(html.includes('aria-label="c75525 location"'));
   const arrows = [...html.matchAll(/class="tube-arrow [^"]+" href="([^"]+)"/g)];
-  assert.equal(arrows.length, 1);
-  assert.ok(objects.some((target) => target.url === arrows[0][1] && target.url !== object.url));
+  assert.ok(arrows.length >= 1);
+  for (const arrow of arrows) assert.ok(objects.some((target) => target.url === arrow[1] && target.url !== object.url));
   assert.ok(!html.includes('class="left arrow"'));
   assert.ok(!html.includes('class="right arrow"'));
 }
@@ -59,7 +59,7 @@ async function runEntry(data, { ok = true, reject = false, random = 0 } = {}) {
 }
 (async () => {
   assert.equal((await runEntry(objects)).redirected, objects[0].url);
-  assert.equal((await runEntry(objects, { random: .999 })).redirected, objects[1].url);
+  assert.equal((await runEntry(objects, { random: .999 })).redirected, objects.at(-1).url);
   for (const data of [[], [{ url: '//outside.test/post' }], [{ url: 'https://outside.test/post' }]]) {
     const result = await runEntry(data);
     assert.equal(result.redirected, undefined);

@@ -27,6 +27,7 @@ tube:
   coordinate: [1, 0]
   nav:
     counterclockwise: /jekyll/update/2026/04/17/hey-first-post.html
+    outward: /2026/09/17/post-mu59wibr.html
 ---
 fence-target looks upon my stab
 

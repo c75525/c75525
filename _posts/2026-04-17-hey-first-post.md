@@ -17,6 +17,7 @@ tube:
   coordinate: [0, 0]
   nav:
     clockwise: /jekyll/update/2026/04/17/wow-a-second-post.html
+    outward: /2026/09/17/post-mu58xwmy.html
 ---
 oasian faculties
 
