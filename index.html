@@ -70,8 +70,8 @@ layout: splash
     var rings = Array.from(new Set(objects.map(function (object) { return Number(object.ring); })))
       .filter(Number.isFinite).sort(function (a, b) { return a - b; });
     if (!rings.length) return;
-    /* Concentric circular tracks: each present ring is an equal radial step from the center. */
-    var centerX = 400, centerY = 185, outerRadius = 160, innerRadius = 35;
+    /* Preserve the tube's elliptical projection; rings use equal steps on this shared radial scale. */
+    var centerX = 400, centerY = 155, outerRadius = 350, innerRadius = 25, projection = 111 / 350;
     var positions = new Map();
     var animatedNodes = [];
     var animatedConnections = [];
@@ -84,7 +84,7 @@ layout: splash
       var progress = rings.length === 1 ? 1 : ringIndex / (rings.length - 1);
       var trackRadius = innerRadius + (outerRadius - innerRadius) * progress;
       var radiusX = trackRadius;
-      var radiusY = trackRadius;
+      var radiusY = trackRadius * projection;
       var objectsOnRing = groups.get(ring).sort(function (a, b) { return Number(a.object) - Number(b.object); });
       ringsLayer.appendChild(svgElement('ellipse', { cx: centerX, cy: centerY, rx: radiusX, ry: radiusY }));
       var baseRadius = Math.max(2.25, Math.min(7, 11 / Math.sqrt(rings.length + objectsOnRing.length / 8)));
@@ -102,14 +102,17 @@ layout: splash
         });
       });
     });
-    var drawnConnections = new Set();
-    objects.forEach(function (object) {
-      Object.keys(object.nav || {}).forEach(function (direction) {
-        var targetUrl = object.nav[direction];
-        if (!byUrl.has(targetUrl) || !positions.has(object.url) || !positions.has(targetUrl)) return;
-        var key = [object.url, targetUrl].sort().join('|');
-        if (drawnConnections.has(key)) return;
-        drawnConnections.add(key);
+    /* The map shows one avenue between each pair of rings, not every authored node edge. */
+    var drawnRingAvenues = new Set();
+    objects.slice().sort(function (a, b) {
+      return Number(a.ring) - Number(b.ring) || Number(a.object) - Number(b.object);
+    }).forEach(function (object) {
+      ['inward', 'outward'].forEach(function (direction) {
+        var targetUrl = (object.nav || {})[direction], target = byUrl.get(targetUrl);
+        if (!target || !positions.has(object.url) || !positions.has(targetUrl)) return;
+        var ringKey = [Number(object.ring), Number(target.ring)].sort(function (a, b) { return a - b; }).join('|');
+        if (ringKey === String(Number(object.ring)) + '|' + String(Number(object.ring)) || drawnRingAvenues.has(ringKey)) return;
+        drawnRingAvenues.add(ringKey);
         var start = positions.get(object.url), end = positions.get(targetUrl);
         var line = svgElement('line', { x1: start.x, y1: start.y, x2: end.x, y2: end.y });
         connectionsLayer.appendChild(line);
