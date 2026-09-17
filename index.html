@@ -25,7 +25,6 @@ layout: splash
     <svg class="tube-map" id="tube-map" viewBox="0 0 800 370" role="img" aria-labelledby="tube-map-title tube-map-description">
       <title id="tube-map-title">Map of the c75525 tube world</title>
       <desc id="tube-map-description">A scaled representation of published rings, ring objects, and authored connections.</desc>
-      <g class="tube-map-connections" id="tube-map-connections"></g>
       <g class="tube-map-rings" id="tube-map-rings"></g>
       <g class="tube-map-nodes" id="tube-map-nodes"></g>
     </svg>
@@ -47,7 +46,6 @@ layout: splash
   var entry = document.getElementById('random-entry');
   var svg = document.getElementById('tube-map');
   var ringsLayer = document.getElementById('tube-map-rings');
-  var connectionsLayer = document.getElementById('tube-map-connections');
   var nodesLayer = document.getElementById('tube-map-nodes');
   var svgNs = 'http://www.w3.org/2000/svg';
   function fail(message) {
@@ -67,17 +65,17 @@ layout: splash
     return element;
   }
   function renderMap(objects) {
-    var rings = Array.from(new Set(objects.map(function (object) { return Number(object.ring); })))
+    var core = objects.find(function (object) { return object.core === true; });
+    var ringObjects = objects.filter(function (object) { return object !== core; });
+    var rings = Array.from(new Set(ringObjects.map(function (object) { return Number(object.ring); })))
       .filter(Number.isFinite).sort(function (a, b) { return a - b; });
-    if (!rings.length) return;
-    /* Preserve the tube's elliptical projection; rings use equal steps on this shared radial scale. */
+    if (!rings.length && !core) return;
+    /* The core is fixed at the tube's center. Every surrounding ring may hold any number of objects. */
     var centerX = 400, centerY = 155, outerRadius = 350, innerRadius = 25, projection = 111 / 350;
     var positions = new Map();
     var animatedNodes = [];
-    var animatedConnections = [];
-    var byUrl = new Map(objects.map(function (object) { return [object.url, object]; }));
     var groups = new Map(rings.map(function (ring) { return [ring, []]; }));
-    objects.forEach(function (object) { if (groups.has(Number(object.ring))) groups.get(Number(object.ring)).push(object); });
+    ringObjects.forEach(function (object) { if (groups.has(Number(object.ring))) groups.get(Number(object.ring)).push(object); });
     /* The tube walls deliberately continue far below the ring plane. */
     ringsLayer.appendChild(svgElement('path', { d: 'M50 155v180M750 155v180' }));
     rings.forEach(function (ring, ringIndex) {
@@ -102,32 +100,17 @@ layout: splash
         });
       });
     });
-    /* The map shows one avenue between each pair of rings, not every authored node edge. */
-    var drawnRingAvenues = new Set();
-    objects.slice().sort(function (a, b) {
-      return Number(a.ring) - Number(b.ring) || Number(a.object) - Number(b.object);
-    }).forEach(function (object) {
-      ['inward', 'outward'].forEach(function (direction) {
-        var targetUrl = (object.nav || {})[direction], target = byUrl.get(targetUrl);
-        if (!target || !positions.has(object.url) || !positions.has(targetUrl)) return;
-        var ringKey = [Number(object.ring), Number(target.ring)].sort(function (a, b) { return a - b; }).join('|');
-        if (ringKey === String(Number(object.ring)) + '|' + String(Number(object.ring)) || drawnRingAvenues.has(ringKey)) return;
-        drawnRingAvenues.add(ringKey);
-        var start = positions.get(object.url), end = positions.get(targetUrl);
-        var line = svgElement('line', { x1: start.x, y1: start.y, x2: end.x, y2: end.y });
-        connectionsLayer.appendChild(line);
-        animatedConnections.push({ line: line, start: start, end: end });
-      });
-    });
+    if (core) positions.set(core.url, { x: centerX, y: centerY, r: 8, core: true });
     objects.forEach(function (object) {
       var position = positions.get(object.url);
       if (!position) return;
       var link = svgElement('a', { href: object.url, 'aria-label': 'Enter ' + object.title + ', ring ' + object.ring + ', object ' + object.object });
       link.setAttribute('class', 'tube-map-node');
+      if (position.core) link.setAttribute('data-core', 'true');
       var ellipse = svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 });
       link.appendChild(ellipse);
       nodesLayer.appendChild(link);
-      animatedNodes.push({ ellipse: ellipse, position: position });
+      if (!position.core) animatedNodes.push({ ellipse: ellipse, position: position });
     });
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       var startedAt = performance.now();
@@ -144,12 +127,6 @@ layout: splash
           node.ellipse.setAttribute('cy', position.y);
           node.ellipse.setAttribute('rx', position.r * perspective);
           node.ellipse.setAttribute('ry', position.r * 0.48 * perspective);
-        });
-        animatedConnections.forEach(function (connection) {
-          connection.line.setAttribute('x1', connection.start.x);
-          connection.line.setAttribute('y1', connection.start.y);
-          connection.line.setAttribute('x2', connection.end.x);
-          connection.line.setAttribute('y2', connection.end.y);
         });
         window.requestAnimationFrame(animateRings);
       }

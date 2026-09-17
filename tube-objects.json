@@ -10,6 +10,7 @@ permalink: /tube-objects.json
     "url": {{ post.url | relative_url | jsonify }},
     "ring": {{ post.tube.ring | jsonify }},
     "object": {{ post.tube.object | jsonify }},
+    "core": {{ post.tube.core | jsonify }},
     "coordinate": {{ post.tube.coordinate | join: ',' | jsonify }},
     "nav": {{ post.tube.nav | jsonify }}
   }{% unless forloop.last %},{% endunless %}

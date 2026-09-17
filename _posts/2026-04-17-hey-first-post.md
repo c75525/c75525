@@ -11,6 +11,7 @@ categories: jekyll update
 # Example location: edit these coordinates/connections as the world develops.
 tube:
   world: c75525
+  core: true
   ring: 1
   object: 1
   branch_path: root/main
