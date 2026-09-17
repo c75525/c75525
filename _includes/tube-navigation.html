@@ -1,5 +1,4 @@
 <section class="tube-panel" aria-label="c75525 location">
-  <p class="tube-coordinate">c75525 / ring {{ page.tube.ring | escape }} / object {{ page.tube.object | escape }}{% if page.tube.coordinate %} / ({{ page.tube.coordinate | join: ', ' | escape }}){% endif %}</p>
   {% assign directions = 'counterclockwise,inward,outward,clockwise' | split: ',' %}
   {% capture tube_links %}
     {% for direction in directions %}
