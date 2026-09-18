@@ -44,10 +44,38 @@ window.installWishingWell = function (entry, map, positions, objects) {
     if (gap < 1) gap += tau;
     var angularRate = 2.4 + Math.random()*.8;
     var glideDuration = gap/angularRate;
-    var dropDuration = Math.hypot(landing.x-startPoint.x, landing.y-startPoint.y)/900;
-    var directDuration = Math.max(.6, Math.hypot(p.x-startPoint.x,p.y-startPoint.y)/700);
+    // Airborne travel is brisk; reserve the slower motion for surface rolling.
+    var dropDuration = Math.max(.18, Math.hypot(landing.x-startPoint.x, landing.y-startPoint.y)/2200);
+    var directDuration = Math.max(.22, Math.hypot(p.x-startPoint.x,p.y-startPoint.y)/2000);
     var phase = direct ? 'direct' : 'drop', phaseStart = start;
-    var glideAngle, sinkStart;
+    var glideAngle, sinkStart, previousBall = null;
+    var previousHoles = new Map();
+    function snapshotHoles() {
+      positions.forEach(function (hole, url) { previousHoles.set(url, { x: hole.x, y: hole.y }); });
+    }
+    snapshotHoles();
+    // Sweep relative motion through each projected aperture, including hole movement.
+    // Earliest intersection wins, so even fast frames cannot skip a hole.
+    function firstHole(from, to) {
+      var first = null;
+      candidates.forEach(function (object) {
+        var hole = positions.get(object.url), old = previousHoles.get(object.url) || hole;
+        var theta = hole.core ? 0 : Math.atan2((hole.y-155)/hole.radiusY,(hole.x-400)/hole.radiusX);
+        var depth = hole.core ? 1 : .78+.36*((Math.sin(theta)+1)/2);
+        var rx = hole.r*depth, ry = rx*.48;
+        var ax=(from.x-old.x)/rx, ay=(from.y-old.y)/ry;
+        var dx=(to.x-hole.x)/rx-ax, dy=(to.y-hole.y)/ry-ay;
+        var a=dx*dx+dy*dy, b=2*(ax*dx+ay*dy), c=ax*ax+ay*ay-1;
+        var hit=null, discriminant=b*b-4*a*c;
+        if(c<=0) hit=0;
+        else if(a>0 && discriminant>=0) {
+          var root=(-b-Math.sqrt(discriminant))/(2*a);
+          if(root>=0 && root<=1) hit=root;
+        }
+        if(hit!==null && (!first || hit<first.time)) first={object:object,time:hit};
+      });
+      return first;
+    }
     function finish() {
       overlay.remove(); busy = false; entry.removeAttribute('aria-busy');
       window.location.assign(target.url);
@@ -63,6 +91,7 @@ window.installWishingWell = function (entry, map, positions, objects) {
       var holeRadius=p.r*depth, radius=holeRadius*.8;
       var flatten=.78+.12*((Math.sin(theta)+1)/2), x, y;
       var elapsed=(now-phaseStart)/1000;
+      var framePhase = phase;
       if (phase === 'drop') {
         var t=Math.min(1,elapsed/dropDuration);
         // Arrive tangent to the counterclockwise track, rather than rebound at contact.
@@ -106,6 +135,21 @@ window.installWishingWell = function (entry, map, positions, objects) {
         // Finish only once the entire ball has passed below the front lip.
         if(descent-radius*flatten>ry+1) { finish(); return; }
       }
+      if (framePhase === 'glide' && previousBall) {
+        var caught = firstHole(previousBall, {x:x,y:y});
+        if (caught) {
+          target=caught.object;
+          entry.href=target.url;
+          p=positions.get(target.url);
+          phase='sink'; sinkStart=now;
+          x=p.x; y=p.y;
+          var caughtAngle=p.core?0:Math.atan2((p.y-155)/p.radiusY,(p.x-400)/p.radiusX);
+          var caughtDepth=p.core?1:.78+.36*((Math.sin(caughtAngle)+1)/2);
+          radius=p.r*caughtDepth*.8;
+          flatten=.78+.12*((Math.sin(caughtAngle)+1)/2);
+        }
+      }
+      previousBall={x:x,y:y}; snapshotHoles();
       ball.setAttribute('cx',x); ball.setAttribute('cy',y);
       ball.setAttribute('rx',radius); ball.setAttribute('ry',radius*flatten);
       requestAnimationFrame(frame);
