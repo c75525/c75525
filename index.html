@@ -107,7 +107,7 @@ layout: splash
     objects.forEach(function (object) {
       var position = positions.get(object.url);
       if (!position) return;
-      var link = svgElement('a', { href: object.url, 'aria-label': 'Enter ' + (object.title || 'location') + ', ring ' + object.ring + ', object ' + object.object });
+      var link = svgElement('g', { 'aria-label': (object.title || 'location') + ', ring ' + object.ring + ', object ' + object.object });
       link.setAttribute('class', 'tube-map-node');
       if (position.core) link.setAttribute('data-core', 'true');
       var marker = svgElement('ellipse', { cx: position.x, cy: position.y, rx: position.r, ry: position.r * .48 });
