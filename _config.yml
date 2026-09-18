@@ -21,17 +21,21 @@
 title: c75525
 email: samcplatten@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  welcome to my blog, thanks for visiting
+  c75525 is Samuel Platten's tube world: a growing archive of images, words,
+  video, and occasional computer graphics.
 baseurl: "" # custom domain serves the site from its root
 url: "https://c75525.org" # canonical production hostname
-twitter_username: jekyllrb
-github_username:  c75525
+identity:
+  name: Samuel Platten
+  moniker: c75525
+github_username: c75525
 
 # Build settings
 remote_theme: chesterhow/tale
 plugins:
   - jekyll-remote-theme
   - jekyll-paginate
+  - jekyll-sitemap
 
 paginate: 12
 paginate_path: "/page:num/"
