@@ -39,6 +39,7 @@ layout: splash
     <span id="coordinate-status" class="coordinate-status" role="status"></span>
   </form>
 </section>
+<script src="{{ '/assets/js/wishing-well.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
 <script>
 (function () {
   var objectsUrl = {{ '/tube-objects.json' | relative_url | jsonify }};
@@ -114,6 +115,7 @@ layout: splash
       nodesLayer.appendChild(link);
       if (!position.core) animatedNodes.push({ ellipse: marker, position: position });
     });
+    if (window.installWishingWell) window.installWishingWell(entry, svg, positions, objects);
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       var startedAt = performance.now();
       function animateRings(now) {
