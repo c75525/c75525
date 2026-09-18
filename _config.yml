@@ -23,7 +23,7 @@ email: samcplatten@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   A growing archive of images, words, video, and occasional computer graphics.
 baseurl: "" # custom domain serves the site from its root
-url: "https://c75525.org" # canonical production hostname
+url: "https://samuelplatten.com" # canonical production hostname
 identity:
   name: Samuel Platten
   moniker: c75525
