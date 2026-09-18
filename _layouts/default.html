@@ -3,9 +3,9 @@
 <head>
   {% assign page_description = page.description | default: page.excerpt | strip_html | normalize_whitespace | default: site.description | truncate: 160 %}
   {% if page.title and page.title != '' %}
-    {% assign seo_title = page.title | append: ' | ' | append: site.title | append: ' — ' | append: site.identity.name %}
+    {% assign seo_title = page.title | append: ' | ' | append: site.title %}
   {% else %}
-    {% assign seo_title = site.title | append: ' — ' | append: site.identity.name %}
+    {% assign seo_title = site.title %}
   {% endif %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,6 +33,17 @@
         "@id": "{{ '/' | absolute_url }}#samuel-platten",
         "name": {{ site.identity.name | jsonify }},
         "alternateName": {{ site.identity.moniker | jsonify }},
+        "jobTitle": {{ site.identity.job_title | jsonify }},
+        "homeLocation": {
+          "@type": "City",
+          "name": {{ site.identity.locality | append: ', ' | append: site.identity.region | jsonify }},
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": {{ site.identity.locality | jsonify }},
+            "addressRegion": {{ site.identity.region | jsonify }},
+            "addressCountry": {{ site.identity.country | jsonify }}
+          }
+        },
         "url": {{ '/' | absolute_url | jsonify }},
         "sameAs": ["https://github.com/{{ site.github_username }}"]
       },
@@ -43,6 +54,7 @@
         "alternateName": {{ site.identity.name | jsonify }},
         "url": {{ '/' | absolute_url | jsonify }},
         "description": {{ site.description | normalize_whitespace | jsonify }},
+        "creator": { "@id": "{{ '/' | absolute_url }}#samuel-platten" },
         "publisher": { "@id": "{{ '/' | absolute_url }}#samuel-platten" }
       }
     ]

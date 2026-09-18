@@ -21,13 +21,16 @@
 title: c75525
 email: samcplatten@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  c75525 is Samuel Platten's tube world: a growing archive of images, words,
-  video, and occasional computer graphics.
+  A growing archive of images, words, video, and occasional computer graphics.
 baseurl: "" # custom domain serves the site from its root
 url: "https://c75525.org" # canonical production hostname
 identity:
   name: Samuel Platten
   moniker: c75525
+  job_title: Artist
+  locality: Phoenix
+  region: AZ
+  country: US
 github_username: c75525
 
 # Build settings
